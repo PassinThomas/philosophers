@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 18:25:11 by tpassin           #+#    #+#             */
-/*   Updated: 2024/07/22 15:52:08 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/07/25 16:56:23 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,8 @@ typedef struct s_table
 	long				time_start_dinner;
 }						t_table;
 
-long					ft_atol(char *str);
-int						check_char(char *str);
 int						ft_parse(char **av, int ac, t_table *p);
 int						init_philos(t_table *table);
+void					ft_clean(t_table *table);
 
 #endif

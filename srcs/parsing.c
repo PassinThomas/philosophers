@@ -6,18 +6,18 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 14:46:50 by tpassin           #+#    #+#             */
-/*   Updated: 2024/07/22 15:51:19 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/07/25 16:57:10 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	ft_isdigit(int c)
+static int	ft_isdigit(int c)
 {
 	return (c >= '0' && c <= '9');
 }
 
-long	ft_atol(char *str)
+static long	ft_atol(char *str)
 {
 	long	res;
 
@@ -38,7 +38,7 @@ long	ft_atol(char *str)
 	return (res);
 }
 
-int	check_char(char *str)
+static int	check_char(char *str)
 {
 	if (!str || !*str)
 		return (1);

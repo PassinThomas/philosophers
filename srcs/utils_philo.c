@@ -6,33 +6,33 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 18:14:25 by tpassin           #+#    #+#             */
-/*   Updated: 2024/07/26 18:34:48 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/22 17:07:04 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	ft_putstr(char *str, int fd)
-{
-	while (*str)
-		write(fd, str++, 1);
-}
-
-void	print_msg(t_table *table, int key)
+void	print_status(t_table *table, int key)
 {
 	pthread_mutex_lock(&table->print_mtx);
-    
-    if (key == DIED)
-    {
-       
-    }
+	if (key == DIED)
+	{
+	}
 	else if (key == FORK)
-		ft_putstr("has taken a fork", 2);
+		printf("has taken a fork\n");
 	else if (key == EAT)
-        ft_putstr("is eating", 2);
+		printf("is eating\n");
 	else if (key == THINK)
-        ft_putstr("is thinking", 2);
+		printf("is thinking\n");
 	else if (key == SLEEP)
-        ft_putstr("is sleeping", 2);
+		printf("is sleeping\n");
 	pthread_mutex_unlock(&table->print_mtx);
+}
+
+long int	get_time(void)
+{
+	struct timeval	current_time;
+
+	gettimeofday(&current_time, NULL);
+	return ((long int)current_time.tv_sec * 1000 + current_time.tv_usec / 1000);
 }

@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 18:25:11 by tpassin           #+#    #+#             */
-/*   Updated: 2024/07/25 16:56:23 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/22 17:00:35 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include <sys/time.h>
 
 // Color
 # define RST "\033[0m"    /* Reset to default color */
@@ -75,5 +76,7 @@ typedef struct s_table
 int						ft_parse(char **av, int ac, t_table *p);
 int						init_philos(t_table *table);
 void					ft_clean(t_table *table);
+void					print_status(t_table *table, int key);
+long int				get_time(void);
 
 #endif

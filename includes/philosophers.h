@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 18:25:11 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/22 17:00:35 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/25 12:56:21 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-# include <unistd.h>
 # include <sys/time.h>
+# include <unistd.h>
 
 // Color
 # define RST "\033[0m"    /* Reset to default color */
@@ -49,7 +49,7 @@ typedef struct s_philo
 	long				id;
 	long				position;
 	long				last_meal;
-	long				count_meal;
+	t_mtx				mtx_count_meal;
 	t_mtx				*r_fork;
 	t_mtx				*l_fork;
 	t_table				*table;
@@ -71,6 +71,7 @@ typedef struct s_table
 	long				time_to_sleep;
 	long				meal_nbr;
 	long				time_start_dinner;
+	long				count_meal;
 }						t_table;
 
 int						ft_parse(char **av, int ac, t_table *p);

@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:30:04 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/25 17:27:07 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/28 16:27:31 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,11 @@ void	sleeping(t_philo *philo)
 
 void	thinking(t_philo *philo)
 {
+	print_status(philo->table, THINK);
+	if (!philo->id % 2)
+		return ;
+	if (philo->table->time_to_sleep > philo->table->time_to_eat)
+		return ;
+	else
+		ft_usleep(philo->table->time_to_eat);
 }

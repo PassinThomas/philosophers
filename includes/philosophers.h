@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 18:25:11 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/25 12:56:21 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/28 16:58:47 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,9 @@ int						init_philos(t_table *table);
 void					ft_clean(t_table *table);
 void					print_status(t_table *table, int key);
 long int				get_time(void);
+void					ft_usleep(long int time);
+void					eating(t_philo *philo);
+void					sleeping(t_philo *philo);
+void					thinking(t_philo *philo);
 
 #endif

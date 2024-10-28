@@ -6,7 +6,7 @@
 #    By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/27 23:24:17 by tpassin           #+#    #+#              #
-#    Updated: 2024/07/22 15:56:48 by tpassin          ###   ########.fr        #
+#    Updated: 2024/10/28 15:39:41 by tpassin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ HEADER_DIR	= includes
 SRCS = srcs/parsing.c \
 	   srcs/main.c \
 	   srcs/init.c \
+	   srcs/utils_philo.c \
 
 OBJS = ${SRCS:.c=.o}
 

@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 18:14:25 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/28 18:16:57 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/29 16:33:08 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,34 +18,38 @@ void	wait_time(long start_time)
 		continue ;
 }
 
-void	print_status(t_table *table, int key)
+void	print_status(t_philo *philo, int key)
 {
-	pthread_mutex_lock(&table->print_mtx);
+	pthread_mutex_lock(&philo->table->print_mtx);
 	if (key == DIED)
-	{
-	}
+		printf("is dead\n");
 	else if (key == FORK)
-		printf("has taken a fork\n");
+		printf("%lld %ld has taken a fork\n", get_time()
+			- philo->table->time_start_dinner, philo->id);
 	else if (key == EAT)
-		printf("is eating\n");
+		printf("%lld %ld is eating\n", get_time()
+			- philo->table->time_start_dinner, philo->id);
 	else if (key == THINK)
-		printf("is thinking\n");
+		printf("%lld %ld is thinking\n", get_time()
+			- philo->table->time_start_dinner, philo->id);
 	else if (key == SLEEP)
-		printf("is sleeping\n");
-	pthread_mutex_unlock(&table->print_mtx);
+		printf("%lld %ld is sleeping\n", get_time()
+			- philo->table->time_start_dinner, philo->id);
+	pthread_mutex_unlock(&philo->table->print_mtx);
 }
 
-long int	get_time(void)
+long long	get_time(void)
 {
 	struct timeval	current_time;
 
 	gettimeofday(&current_time, NULL);
-	return ((long int)current_time.tv_sec * 1000 + current_time.tv_usec / 1000);
+	return ((long long)current_time.tv_sec * 1000 + current_time.tv_usec
+		/ 1000);
 }
-void	ft_usleep(long int time)
+void	ft_usleep(long long time)
 {
-	long int	start_time;
-	long int	end_time;
+	long long	start_time;
+	long long	end_time;
 
 	start_time = get_time();
 	end_time = start_time + time;

@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 18:25:11 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/28 16:58:47 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/29 16:33:27 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,14 @@ typedef struct s_table
 int						ft_parse(char **av, int ac, t_table *p);
 int						init_philos(t_table *table);
 void					ft_clean(t_table *table);
-void					print_status(t_table *table, int key);
-long int				get_time(void);
-void					ft_usleep(long int time);
+void					print_status(t_philo *philo, int key);
+long long				get_time(void);
+void					ft_usleep(long long time);
 void					eating(t_philo *philo);
 void					sleeping(t_philo *philo);
 void					thinking(t_philo *philo);
+int						run_prog(t_table *table);
+int						is_dead(t_table *table);
+void					wait_time(long start_time);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/27 23:24:17 by tpassin           #+#    #+#              #
-#    Updated: 2024/10/28 15:39:41 by tpassin          ###   ########.fr        #
+#    Updated: 2024/10/29 15:59:16 by tpassin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,9 @@ SRCS = srcs/parsing.c \
 	   srcs/main.c \
 	   srcs/init.c \
 	   srcs/utils_philo.c \
+	   srcs/threads.c \
+	   srcs/routine.c \
+	   srcs/actions.c \
 
 OBJS = ${SRCS:.c=.o}
 

@@ -6,18 +6,78 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:50:54 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/29 16:54:01 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/11/01 19:05:31 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+// int	check_life(t_table *table)
+// {
+// 	long	i;
+// 	long	actual_time;
+
+// 	i = 0;
+// 	while (i < table->nb_philo)
+// 	{
+// 		actual_time = get_time();
+// 		pthread_mutex_lock(&table->last_meal_mtx);
+// 		if (actual_time - table->philos[i].last_meal > table->time_to_die)
+// 		{
+// 			pthread_mutex_unlock(&table->last_meal_mtx);
+// 			printf("Philo %ld is died\n", table->philos[i].id);
+// 			pthread_mutex_lock(&table->death_lock);
+// 			table->stop_simulation = 1;
+// 			pthread_mutex_unlock(&table->death_lock);
+// 			return (1);
+// 		}
+// 		pthread_mutex_unlock(&table->last_meal_mtx);
+// 		i++;
+// 	}
+// 	return (0);
+// }
+
+int	check_death(t_philo *philo)
+{
+	long long	time;
+
+	pthread_mutex_lock(&philo->table->last_meal_mtx);
+	time = get_time() - philo->last_meal;
+	pthread_mutex_unlock(&philo->table->last_meal_mtx);
+	if (time >= philo->table->time_to_die)
+	{
+		set_death(philo->table);
+		usleep(1000);
+		print_status(philo, DIED);
+		return (1);
+	}
+	return (0);
+}
+
+int	check_life(t_table *table)
+{
+	long	i;
+
+	i = 0;
+	while (i < table->nb_philo)
+	{
+		if (check_death(&table->philos[i]))
+			return (1);
+		// check nbr repas
+		i++;
+	}
+	// suite de check repas
+	return (0);
+}
 
 void	*routine_philo(void *args)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)args;
+	pthread_mutex_lock(&philo->table->last_meal_mtx);
 	philo->last_meal = philo->table->time_start_dinner;
+	pthread_mutex_unlock(&philo->table->last_meal_mtx);
 	wait_time(philo->table->time_start_dinner);
 	if (philo->id % 2)
 		ft_usleep(philo->table->time_to_eat);
@@ -42,6 +102,7 @@ void	*death_monitor(void *args)
 			break ;
 		usleep(1000);
 	}
+	return (args);
 }
 
 int	run_prog(t_table *table)
@@ -49,6 +110,7 @@ int	run_prog(t_table *table)
 	int i;
 
 	i = 0;
+
 	table->time_start_dinner = get_time() + (table->nb_philo * 20);
 	while (i < table->nb_philo)
 	{
@@ -58,6 +120,8 @@ int	run_prog(t_table *table)
 			return (1);
 		i++;
 	}
+	if (pthread_create(&table->monitor, NULL, &death_monitor, table))
+		return (1);
 	i = 0;
 	while (i < table->nb_philo)
 	{
@@ -65,5 +129,7 @@ int	run_prog(t_table *table)
 			return (1);
 		i++;
 	}
+	if (pthread_join(table->monitor, NULL))
+		return (1);
 	return (0);
 }

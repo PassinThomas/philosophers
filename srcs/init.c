@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:24:55 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/29 13:21:45 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/11/01 19:06:16 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,16 +80,16 @@ int	init_philos(t_table *table)
 
 void	ft_clean(t_table *table)
 {
-	int	i;
+	int i;
 
 	i = 0;
-	while(i < table->nb_philo)
+	while (i < table->nb_philo)
 		pthread_mutex_destroy(&table->forks[i++]);
+	free(table->philos);
+	free(table->forks);
 	pthread_mutex_destroy(&table->dead_mtx);
 	pthread_mutex_destroy(&table->count_meal_mtx);
 	pthread_mutex_destroy(&table->last_meal_mtx);
 	pthread_mutex_destroy(&table->print_mtx);
-	free(table->philos);
-	free(table->forks);
 	return ;
 }

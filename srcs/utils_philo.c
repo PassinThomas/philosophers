@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 18:14:25 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/29 16:33:08 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/11/01 19:10:41 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,14 @@ void	wait_time(long start_time)
 void	print_status(t_philo *philo, int key)
 {
 	pthread_mutex_lock(&philo->table->print_mtx);
+	if (is_dead(philo->table) && key != DIED)
+	{
+		pthread_mutex_unlock(&philo->table->print_mtx);
+		return ;
+	}
 	if (key == DIED)
-		printf("is dead\n");
+		printf("%lld %ld is dead\n", get_time()
+			- philo->table->time_start_dinner, philo->id);
 	else if (key == FORK)
 		printf("%lld %ld has taken a fork\n", get_time()
 			- philo->table->time_start_dinner, philo->id);

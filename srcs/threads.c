@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:11:06 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/29 16:26:41 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/11/01 18:58:58 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,17 @@ int	is_dead(t_table *table)
 
     dead = 0;
 	pthread_mutex_lock(&table->dead_mtx);
-	dead = table->dead;
+	if (table->dead)
+		dead = table->dead;
 	pthread_mutex_unlock(&table->dead_mtx);
 
 	return (dead);
+}
+
+void set_death(t_table *table)
+{
+	pthread_mutex_lock(&table->dead_mtx);
+	table->dead = 1;
+	pthread_mutex_unlock(&table->dead_mtx);
+
 }

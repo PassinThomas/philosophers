@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 18:25:11 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/29 16:33:27 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/11/01 19:09:39 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_table
 	t_mtx				count_meal_mtx;
 	t_mtx				print_mtx;
 	t_mtx				last_meal_mtx;
+	t_mtx				death_lock;
 	int					nb_philo;
 	int					dead;
 	long				time_to_eat;
@@ -86,5 +87,6 @@ void					thinking(t_philo *philo);
 int						run_prog(t_table *table);
 int						is_dead(t_table *table);
 void					wait_time(long start_time);
+void					set_death(t_table *table);
 
 #endif

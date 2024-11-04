@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:30:04 by tpassin           #+#    #+#             */
-/*   Updated: 2024/11/01 19:14:02 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/11/04 17:45:53 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	eating(t_philo *philo)
 	pthread_mutex_lock(&philo->table->last_meal_mtx);
 	philo->last_meal = get_time();
 	pthread_mutex_unlock(&philo->table->last_meal_mtx);
-	ft_usleep(philo->table->time_to_eat);
-	// pthread_mutex_lock(&philo->mtx_count_meal);
-	// philo->table->count_meal++;
-	// pthread_mutex_unlock(&philo->mtx_count_meal);
+	ft_usleep(philo->table->time_to_eat, philo->table);
+	pthread_mutex_lock(&philo->table->count_meal_mtx);
+	philo->count_meal++;
+	pthread_mutex_unlock(&philo->table->count_meal_mtx);
 	pthread_mutex_unlock(philo->l_fork);
 	pthread_mutex_unlock(philo->r_fork);
 }
@@ -41,7 +41,7 @@ void	sleeping(t_philo *philo)
 	if (is_dead(philo->table))
 		return ;
 	print_status(philo, SLEEP);
-	ft_usleep(philo->table->time_to_sleep);
+	ft_usleep(philo->table->time_to_sleep, philo->table);
 }
 
 void	thinking(t_philo *philo)
@@ -54,5 +54,5 @@ void	thinking(t_philo *philo)
 	if (philo->table->time_to_sleep > philo->table->time_to_eat)
 		return ;
 	else
-		ft_usleep(philo->table->time_to_eat);
+		ft_usleep(philo->table->time_to_eat, philo->table);
 }

@@ -6,7 +6,7 @@
 #    By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/27 23:24:17 by tpassin           #+#    #+#              #
-#    Updated: 2024/10/29 15:59:16 by tpassin          ###   ########.fr        #
+#    Updated: 2024/11/04 17:51:18 by tpassin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,14 +24,14 @@ SRCS = srcs/parsing.c \
 
 OBJS = ${SRCS:.c=.o}
 
-CC = cc
+CC = clang
 
-CFLAGS = -g3 -g -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -pthread -g3 -fsanitize=thread
 
 RM = rm -f
 
 $(NAME): ${OBJS}
-	${CC} ${OBJS} -o $(NAME)
+	${CC}  ${CFLAGS} ${OBJS} -o $(NAME)
 
 %.o:%.c
 	${CC} ${CFLAGS} -c $< -o ${<:.c=.o} -I $(HEADER_DIR)

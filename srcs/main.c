@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 18:22:19 by tpassin           #+#    #+#             */
-/*   Updated: 2024/11/01 18:53:48 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/11/04 15:54:25 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int ac, char **av)
 	if (table.nb_philo == 1)
 	{
 		start_time = get_time();
-		ft_usleep(table.time_to_die);
+		ft_usleep(table.time_to_die, &table);
 		return (printf("%lld philo is dead\n", get_time() - start_time), 1);
 	}
 	if (init_philos(&table))

@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 18:14:25 by tpassin           #+#    #+#             */
-/*   Updated: 2024/11/01 19:10:41 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/11/04 16:25:27 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ long long	get_time(void)
 	return ((long long)current_time.tv_sec * 1000 + current_time.tv_usec
 		/ 1000);
 }
-void	ft_usleep(long long time)
+
+void	ft_usleep(long long time, t_table *table)
 {
 	long long	start_time;
 	long long	end_time;
@@ -61,6 +62,8 @@ void	ft_usleep(long long time)
 	end_time = start_time + time;
 	while (get_time() < end_time)
 	{
+		if (is_dead(table))
+			break ;
 		usleep(100);
 	}
 }

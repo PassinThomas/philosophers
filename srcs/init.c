@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:24:55 by tpassin           #+#    #+#             */
-/*   Updated: 2024/11/01 19:06:16 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/11/04 17:04:54 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,16 +71,18 @@ int	init_philos(t_table *table)
 			return (1);
 		table->philos[i].id = i + 1;
 		table->philos[i].table = table;
+		table->philos[i].count_meal = 0;
 		init_forks(&table->philos[i], i);
 		i++;
 	}
-	init_mutex(table);
+	if (init_mutex(table))
+		return (1);
 	return (0);
 }
 
 void	ft_clean(t_table *table)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < table->nb_philo)

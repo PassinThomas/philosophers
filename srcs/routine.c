@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:50:54 by tpassin           #+#    #+#             */
-/*   Updated: 2024/11/04 18:04:34 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/11/06 13:49:06 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 int	check_death(t_philo *philo)
 {
+	long	time;
+
 	pthread_mutex_lock(&philo->table->last_meal_mtx);
-	if ((get_time() - philo->last_meal) >= philo->table->time_to_die)
+	time = get_time() - philo->last_meal;
+	pthread_mutex_unlock(&philo->table->last_meal_mtx);
+	if (time >= philo->table->time_to_die)
 	{
-		pthread_mutex_unlock(&philo->table->last_meal_mtx);
 		pthread_mutex_lock(&philo->table->dead_mtx);
 		philo->table->dead = 1;
 		pthread_mutex_unlock(&philo->table->dead_mtx);
@@ -25,19 +28,34 @@ int	check_death(t_philo *philo)
 		print_status(philo, DIED);
 		return (1);
 	}
-	pthread_mutex_unlock(&philo->table->last_meal_mtx);
 	return (0);
 }
 
 int	check_life(t_table *table)
 {
 	long	i;
+	long	meal;
 
 	i = 0;
+	meal = 0;
 	while (i < table->nb_philo)
 	{
 		if (check_death(&table->philos[i]))
 			return (1);
+		// if (table->meal_nbr)
+		// {
+		// 	pthread_mutex_lock(&table->count_meal_mtx);
+		// 	if (table->philos[i].count_meal == table->meal_nbr)
+		// 		meal++;
+		// 	pthread_mutex_unlock(&table->count_meal_mtx);
+		// 	if (meal == table->nb_philo)
+		// 	{
+		// 		pthread_mutex_lock(&table->dead_mtx);
+		// 		table->dead = 1;
+		// 		pthread_mutex_unlock(&table->dead_mtx);
+		// 		return (1);
+		// 	}
+		// }
 		i++;
 	}
 	return (0);

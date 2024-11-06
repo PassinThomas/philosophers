@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:24:55 by tpassin           #+#    #+#             */
-/*   Updated: 2024/11/04 17:04:54 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/11/06 12:13:54 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,11 @@ static int	init_mutex(t_table *table)
 	if (pthread_mutex_init(&table->dead_mtx, NULL))
 		return (1);
 	if (pthread_mutex_init(&table->count_meal_mtx, NULL))
-	{
-		pthread_mutex_destroy(&table->dead_mtx);
 		return (1);
-	}
 	if (pthread_mutex_init(&table->last_meal_mtx, NULL))
-	{
-		pthread_mutex_destroy(&table->dead_mtx);
-		pthread_mutex_destroy(&table->count_meal_mtx);
 		return (1);
-	}
 	if (pthread_mutex_init(&table->print_mtx, NULL))
-	{
-		pthread_mutex_destroy(&table->dead_mtx);
-		pthread_mutex_destroy(&table->count_meal_mtx);
-		pthread_mutex_destroy(&table->last_meal_mtx);
 		return (1);
-	}
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 18:22:19 by tpassin           #+#    #+#             */
-/*   Updated: 2024/11/04 15:54:25 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/11/06 13:52:37 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,18 @@
 int	main(int ac, char **av)
 {
 	t_table	table;
-	long	start_time;
+	// long	start_time;
 
-	memset(&table, 0, sizeof(t_table));
-	if (ft_parse(av, ac, &table))
+	// memset(&table, 0, sizeof(t_table));
+	if (ft_parse(av, ac, &table) || (ac == 6 && table.meal_nbr <= 0))
 		return (printf("Invalid Args\n"), 1);
-	if (table.nb_philo == 1)
-	{
-		start_time = get_time();
-		ft_usleep(table.time_to_die, &table);
-		return (printf("%lld philo is dead\n", get_time() - start_time), 1);
-	}
+	// if (table.nb_philo == 1)
+	// {
+	// 	start_time = get_time();
+	// 	printf("%lu 1 as taken a fork\n", get_time() - start_time);
+	// 	ft_usleep(table.time_to_die, &table);
+	// 	return (printf("%lu philo is dead\n", get_time() - start_time), 1);
+	// }
 	if (init_philos(&table))
 		return (ft_clean(&table), 1);
 	if (run_prog(&table))

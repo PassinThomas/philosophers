@@ -6,7 +6,7 @@
 #    By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/27 23:24:17 by tpassin           #+#    #+#              #
-#    Updated: 2024/11/04 17:51:18 by tpassin          ###   ########.fr        #
+#    Updated: 2024/11/04 18:28:55 by tpassin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,6 @@ SRCS = srcs/parsing.c \
 	   srcs/main.c \
 	   srcs/init.c \
 	   srcs/utils_philo.c \
-	   srcs/threads.c \
 	   srcs/routine.c \
 	   srcs/actions.c \
 

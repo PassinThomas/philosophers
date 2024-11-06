@@ -6,13 +6,13 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 18:14:25 by tpassin           #+#    #+#             */
-/*   Updated: 2024/11/06 13:38:51 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/11/06 18:48:06 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	wait_time(size_t start_time)
+void	wait_time(long long start_time)
 {
 	while (get_time() < start_time)
 		continue ;
@@ -27,24 +27,24 @@ void	print_status(t_philo *philo, int key)
 		return ;
 	}
 	if (key == DIED)
-		printf("%lu %ld is dead\n", get_time()
+		printf("%lld %ld is dead\n", get_time()
 			- philo->table->time_start_dinner, philo->id);
 	else if (key == FORK)
-		printf("%lu %ld has taken a fork\n", get_time()
+		printf("%lld %ld has taken a fork\n", get_time()
 			- philo->table->time_start_dinner, philo->id);
 	else if (key == EAT)
-		printf("%lu %ld is eating\n", get_time()
+		printf("%lld %ld is eating\n", get_time()
 			- philo->table->time_start_dinner, philo->id);
 	else if (key == THINK)
-		printf("%lu %ld is thinking\n", get_time()
+		printf("%lld %ld is thinking\n", get_time()
 			- philo->table->time_start_dinner, philo->id);
 	else if (key == SLEEP)
-		printf("%lu %ld is sleeping\n", get_time()
+		printf("%lld %ld is sleeping\n", get_time()
 			- philo->table->time_start_dinner, philo->id);
 	pthread_mutex_unlock(&philo->table->print_mtx);
 }
 
-size_t	get_time(void)
+long long	get_time(void)
 {
 	struct timeval	current_time;
 
@@ -52,48 +52,21 @@ size_t	get_time(void)
 	return (current_time.tv_sec * 1000 + current_time.tv_usec / 1000);
 }
 
-void	ft_usleep(size_t time, t_table *table)
+void	ft_usleep(long long time, t_table *table)
 {
-	t_data_time	data;
+	long long	start_time;
+	long long	end_time;
 
-	data.start = get_time();
-	data.remaining = time;
-	while (data.remaining > 0)
+	start_time = get_time();
+	end_time = start_time + time;
+	while (get_time() < end_time)
 	{
 		if (is_dead(table))
 			break ;
-		data.now = get_time();
-		if (data.start + time > data.now)
-			data.remaining = data.start + time - data.now;
-		else
-			data.remaining = 0;
-		if (data.remaining > 500)
-			data.sleep_time = 500;
-		else
-			data.sleep_time = data.remaining;
-		usleep(data.sleep_time);
-		data.now = get_time();
-		if (data.start + time > data.now)
-			data.remaining = data.start + time - data.now;
-		else
-			data.remaining = 0;
+		usleep(200);
 	}
 }
 
-// void	ft_usleep(long long time, t_table *table)
-// {
-// 	long long	start_time;
-// 	long long	end_time;
-
-// 	start_time = get_time();
-// 	end_time = start_time + time;
-// 	while (get_time() < end_time)
-// 	{
-// 		if (is_dead(table))
-// 			break ;
-// 		usleep(500);
-// 	}
-// }
 int	is_dead(t_table *table)
 {
 	int	dead;

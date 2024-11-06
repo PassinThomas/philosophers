@@ -6,11 +6,11 @@
 #    By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/27 23:24:17 by tpassin           #+#    #+#              #
-#    Updated: 2024/11/04 18:28:55 by tpassin          ###   ########.fr        #
+#    Updated: 2024/11/06 19:00:12 by tpassin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = philosophers
+NAME = philo
 
 HEADER_DIR	= includes
 
@@ -23,9 +23,9 @@ SRCS = srcs/parsing.c \
 
 OBJS = ${SRCS:.c=.o}
 
-CC = clang
+CC = cc
 
-CFLAGS = -Wall -Werror -Wextra -pthread -g3 -fsanitize=thread
+CFLAGS = -Wall -Werror -Wextra -pthread -g3 #-fsanitize=thread
 
 RM = rm -f
 
